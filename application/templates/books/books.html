@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理室</title>
+</head>
+<body>
+
+
+<hr>
+<ul>
+
+
+ {% for au in author %}
+    <li>{{ au.name }} </li>
+     <ul>
+      {% for book in au.books %}
+        <li>{{ book.book_name }}</li>
+      {% endfor %}
+
+     </ul>
+ {% endfor %}
+</ul>
+
+</body>
+</html>

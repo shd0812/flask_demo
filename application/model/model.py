@@ -1,20 +1,24 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 # author:shenhaodong
-# datetime:2020-07-26 16:10
+# datetime:2020-08-09 18:33
 # software: PyCharm
+
+
 
 from  flask_login import UserMixin
 
 from application.common import db
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'tb_user'
+
     user_id = db.Column('id', db.Integer, primary_key=True)
     accountNumber = db.Column(db.String(200), unique=True)
-    password = db.Column(db.String(50), unique=True)
+    password = db.Column(db.String(51), unique=True)
     name = db.Column(db.String(20), unique=True)
 
-    __tablename__ = 'tb_user'
+
 
     def __init__(self,user_id = None,
                  account_num=None,
@@ -37,3 +41,32 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return '<User %r %r>' % (self.accountNumber,self.password)
+
+
+
+
+
+class Author(db.Model):
+    __tablename__ = 'author'
+
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(50))
+    books = db.relationship("Books",backref = 'author')
+
+    def __repr__(self):
+        return  'Author:%s ' % self.name
+
+class Books(db.Model):
+
+    __tablename__ = 'books'
+
+    id = db.Column(db.Integer,primary_key=True)
+    book_name = db.Column(db.String(50))
+    author_id = db.Column(db.Integer,db.ForeignKey('author.id'))
+
+
+    def __repr__(self):
+        return "Books:%s %s" % (self.book_name, self.author_id)
+
+
+

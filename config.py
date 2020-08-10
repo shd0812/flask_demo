@@ -13,11 +13,12 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     DB_USER =  'root'
     DB_PASSWORD = os.environ.get('DB_PASSWORD') or '123'
-    DB_HOST = os.environ.get('HOST') or '122.51.192.201'
+    # DB_HOST = os.environ.get('HOST') or '122.51.192.201'
+    DB_HOST =  '122.51.192.201'
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    DB_DB = 'zwc'
+    DB_DB = 'love'
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://' + DB_USER + ':' + DB_PASSWORD + '@' + DB_HOST + '/' + DB_DB +'?charset=utf8'
 
 

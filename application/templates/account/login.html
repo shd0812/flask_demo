@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
+
+
+    <form method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label> 账号</label>
+            <input name="username">
+        </div>
+        <div class="form-group">
+            <label> 密码</label>
+            <input name="password">
+        </div>
+        <button >登录</button>
+    </form>
+
+</body>
+</html>
