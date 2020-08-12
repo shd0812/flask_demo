@@ -16,3 +16,5 @@ class BookForm(FlaskForm):
     # username = StringField('Username',render_kw={'placeholder': "your name"}, validators=[DataRequired()])
 
     author = StringField("Author", render_kw={'placeholder':'作者名字'}, validators=[DataRequired()])
+    book = StringField("Book", render_kw={'placeholder':'书籍名字'}, validators=[DataRequired()])
+    submit = SubmitField("提交")

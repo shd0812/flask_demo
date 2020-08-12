@@ -5,8 +5,22 @@
     <title>图书管理室</title>
 </head>
 <body>
-
-
+    <form method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label> 作者</label>
+            <input name="author">
+        </div>
+        <div class="form-group">
+            <label> 书籍</label>
+            <input name="book">
+        </div>
+        <br>
+        <button name="submit"> 添加书籍</button>
+    </form>
+{% for message in get_flashed_messages() %}
+{{ message }}
+{% endfor %}
 <hr>
 <ul>
 
@@ -15,12 +29,15 @@
     <li>{{ au.name }} </li>
      <ul>
       {% for book in au.books %}
-        <li>{{ book.book_name }}</li>
+        <li>{{ book.book_name }} <a href={{ url_for("book.delete_book",book_id = book.id) }}>删除</a></li>
+        {% else %}
+          <li>无</li>
       {% endfor %}
 
      </ul>
  {% endfor %}
 </ul>
+
 
 </body>
 </html>
