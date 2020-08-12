@@ -13,9 +13,22 @@ from application.form.book_form import BookForm
 bp = Blueprint('book', __name__, url_prefix='/book')
 
 
-@bp.route('/delete_author/<author>')
-def delete_author(author):
-    pass
+@bp.route('/delete_author/<author_id>')
+def delete_author(author_id):
+
+    author_result = Author.query.get(author_id) # 作者是否存在
+    if author_result: #如果存在
+        try:
+            # 查询后直接删除
+            Books.query.filter_by(author_id = author_id ).delete()
+            db.session.delete(author_result)
+            db.session.commit()
+        except Exception as e:
+            flash("删除作者失败，原因是{}".format(e))
+            db.session.rollback()
+    else:
+        flash("作者不存在")
+    return  redirect(url_for("book.book_list"))
 
 
 @bp.route('/delete_book/<book_id>')  #删除书籍
