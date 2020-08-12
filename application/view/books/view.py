@@ -13,7 +13,12 @@ from application.form.book_form import BookForm
 bp = Blueprint('book', __name__, url_prefix='/book')
 
 
-@bp.route('/delete_book/<book_id>')
+@bp.route('/delete_author/<author>')
+def delete_author(author):
+    pass
+
+
+@bp.route('/delete_book/<book_id>')  #删除书籍
 def delete_book(book_id):
     book = Books.query.get(book_id)
     if book:

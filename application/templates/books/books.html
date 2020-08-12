@@ -5,6 +5,7 @@
     <title>图书管理室</title>
 </head>
 <body>
+{#    < 提交模块>#}
     <form method="post">
         {{ form.csrf_token }}
         <div class="form-group">
@@ -22,11 +23,12 @@
 {{ message }}
 {% endfor %}
 <hr>
+
+
 <ul>
-
-
+{# 先遍历作者再遍历书籍#}
  {% for au in author %}
-    <li>{{ au.name }} </li>
+    <li>{{ au.name }} <a href={{ url_for("book.delete_author",author = author.id) }}>删除作者</a> </li>
      <ul>
       {% for book in au.books %}
         <li>{{ book.book_name }} <a href={{ url_for("book.delete_book",book_id = book.id) }}>删除</a></li>
