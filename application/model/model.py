@@ -7,27 +7,19 @@
 
 
 from  flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from application.common import db
 
+# 用户表
 class User(db.Model, UserMixin):
-    __tablename__ = 'tb_user'
+    __tablename__ = 'user'
 
     user_id = db.Column('id', db.Integer, primary_key=True)
-    accountNumber = db.Column(db.String(200), unique=True)
-    password = db.Column(db.String(51), unique=True)
-    name = db.Column(db.String(20), unique=True)
+    username = db.Column(db.String(200), unique=True)
+    password = db.Column(db.String(252))
+    # name = db.Column(db.String(20), unique=True)
 
-
-
-    def __init__(self,user_id = None,
-                 account_num=None,
-                 password=None,
-                 name='anonymous'):
-        self.user_id = user_id
-        self.accountNumber = account_num
-        self.password = password
-        self.name = name
 
     def is_authenticated(self):
         return True
@@ -39,8 +31,15 @@ class User(db.Model, UserMixin):
     def get_id(self):
         return str(self.user_id)
 
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+
     def __repr__(self):
-        return '<User %r %r>' % (self.accountNumber,self.password)
+        return '<User %r %r>' % (self.username,self.password)
 
 
 

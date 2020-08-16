@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>注册</title>
 </head>
 <body>
     {% for message in get_flashed_messages() %}
@@ -20,9 +20,11 @@
             <label> 密码:</label>
             <input name="password">
         </div>
-        <button >登录 </button>
-        <br>
-        <a href={{ url_for("auth.regist") }}>注册</a>
+        <div class="form-group">
+            <label> 确认密码:</label>
+            <input name="password_confirm">
+        </div>
+        <button >注册</button>
     </form>
 
 </body>

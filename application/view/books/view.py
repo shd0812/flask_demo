@@ -6,7 +6,7 @@
 
 
 from application.model.model import  *
-
+from flask_login import login_required
 from flask import Blueprint, render_template, redirect, url_for,flash,request
 from application.form.book_form import BookForm
 
@@ -14,6 +14,7 @@ bp = Blueprint('book', __name__, url_prefix='/book')
 
 
 @bp.route('/delete_author/<author_id>')
+@login_required
 def delete_author(author_id):
 
     author_result = Author.query.get(author_id) # 作者是否存在
@@ -32,6 +33,7 @@ def delete_author(author_id):
 
 
 @bp.route('/delete_book/<book_id>')  #删除书籍
+@login_required
 def delete_book(book_id):
     book = Books.query.get(book_id)
     if book:
@@ -49,6 +51,7 @@ def delete_book(book_id):
 
 
 @bp.route('/list',methods=['GET','POST'])
+@login_required
 def book_list():
 
     # 自定义bookform表单
@@ -59,7 +62,7 @@ def book_list():
         author = book_form.author.data # 获取作者
         book = book_form.book.data  #获取书籍
         author_parm = Author.query.filter_by(name = author).first() #查询数据库是否有该作者
-        print(author_parm)
+        # print(author_parm)
         if author_parm: # 如果作者存在
             book_name = Books.query.filter_by(book_name = book).first()
             if book_name:  # 如果存在
@@ -100,7 +103,7 @@ def book_list():
             print("23123123")
             flash("参数不全")
     author = Author.query.all()
-    book = Books.query.all()
+    # book = Books.query.all()
     for  a in author:
         print(a.books)
     return render_template('books/books.html', author = author, form = book_form)

@@ -1,3 +1,3 @@
-python manage.py db init
-python manage.py db migrate
-python manage.py db upgrade
+python runner.py db init
+python runner.py db migrate
+python runner.py db upgrade
